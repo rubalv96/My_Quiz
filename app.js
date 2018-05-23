@@ -14,6 +14,24 @@ var index = require('./routes/index');
 
 var app = express();
 
+//Configuración de sesiones para su almacenamiento en la BD con Sequelize
+
+var sequelize = require("./models");
+var sessionStore = new SequelizeStore({
+  db: sequelize,
+  table: "session",
+  checkExpirationInterval: 15*60*1000,
+  expiration: 4*60*60*1000 //4 horas como máximo de sesión abierta
+});
+
+app.use(session({
+  secret: "Quiz 2018",
+  store: sessionStore,
+  resave: false,
+  saveUninitialized:true
+}));
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -44,6 +62,7 @@ app.use(methodOverride('_method', {methods: ["POST", "GET"]}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(partials());
 app.use(flash());
+<<<<<<< HEAD
 
 // Dynamic Helper:
 app.use(function(req, res, next) {
@@ -53,6 +72,8 @@ app.use(function(req, res, next) {
 
     next();
 });
+=======
+>>>>>>> 39713418cd9ffaed3360c863c2a2fe904fab7876
 
 app.use('/', index);
 
