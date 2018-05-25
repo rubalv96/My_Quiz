@@ -62,7 +62,6 @@ app.use(methodOverride('_method', {methods: ["POST", "GET"]}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(partials());
 app.use(flash());
-<<<<<<< HEAD
 
 // Dynamic Helper:
 app.use(function(req, res, next) {
@@ -72,8 +71,6 @@ app.use(function(req, res, next) {
 
     next();
 });
-=======
->>>>>>> 39713418cd9ffaed3360c863c2a2fe904fab7876
 
 app.use('/', index);
 

@@ -17,6 +17,21 @@ exports.load = (req, res, next, tipId) => {
     .catch(error => next(error));
 };
 
+//Admin o autor requerido para edit una pista
+
+exports.adminOrAuthorRequired=(req, res, next)=>{
+    const isAdmin = !!req.session.user.isAdmin; //Doble negación (se hace un casting automático) por si en la base de datos no está el dato como boolean sino como String 
+    const isAuthor = req.session.user.id === req.tip.authorId;
+
+    if(isAdmin || isAuthor){
+        next();
+    }
+    else{
+        res.send(403);
+    }
+}
+
+
 
 // POST /quizzes/:quizId/tips
 exports.create = (req, res, next) => {
@@ -75,3 +90,31 @@ exports.destroy = (req, res, next) => {
     .catch(error => next(error));
 };
 
+//Editar tips
+exports.edit=(req,res,next)=>{
+    const{quiz,tip} = req;
+    res.render('tips/edit', {quiz,tip});
+}
+
+//Actualizacion tips
+
+exports.update=(req,res,next) =>{
+    const{quiz,tip} = req;
+    tip.text = req.body.text; //En la vista le he llamado en el campo name "text" por eso accedo a text
+    tip.accepted = false;
+    
+    tip.save({fields: ["text", "accepted"]})
+    .then(tip => {
+        req.flash('success', 'Tip edited successfully.');
+        res.redirect('/quizzes/' + quiz.id);
+    })
+    .catch(Sequelize.ValidationError, error => {
+        req.flash('error', 'There are errors in the form:');
+        error.errors.forEach(({message}) => req.flash('error', message));
+        res.render('tips/edit', {quiz,tip});
+    })
+    .catch(error => {
+        req.flash('error', 'Error editing the Quiz: ' + error.message);
+        next(error);
+    });
+};
