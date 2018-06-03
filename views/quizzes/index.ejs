@@ -16,11 +16,16 @@
         <td>
             <a href="/quizzes/<%= quiz.id %>/edit"><button>edit</button></a>
         </td>
+       
         <td>
             <a href="/quizzes/<%= quiz.id %>?_method=DELETE"
                onClick="return confirm('Delete: <%= quiz.question %>');">
                 <button>delete</button>
             </a>
+        </td>
+
+        <td>
+            <a href="https://www.google.es/search?q=<%= quiz.question %>" target="_blank"><button>Buscar en Internet</button></a>
         </td>
     </tr>
     <% } %>
