@@ -5,6 +5,8 @@ const quizController = require('../controllers/quiz');
 const tipController = require('../controllers/tip');
 const userController = require('../controllers/user');
 
+const filmController= require('../controllers/film');
+
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.render('index');
@@ -45,5 +47,9 @@ router.get('/quizzes/:quizId(\\d+)/check', quizController.check);
 
 
 router.post('/quizzes/:quizId(\\d+)/tips',     tipController.create);
+
+
+router.get('/films',          filmController.index);
+router.get('/films/new',      filmController.new);
 
 module.exports = router;

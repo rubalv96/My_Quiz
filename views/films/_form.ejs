@@ -1,0 +1,21 @@
+
+<div class="wideRow">
+    <label for="preg"  class="itemNarrow">Nombre de la película:</label>
+    <input type="text" class="itemWide" id="preg" name="question" value="<%= film.name %>" placeholder="Nombre" autocomplete="off"/>
+    </div>
+    
+    
+    <div class="wideRow">
+    <label for="resp"  class="itemNarrow">Director de la película:</label>
+    <input type="text" class="itemWide" id="resp" name="answer" value="<%= film.director %>" placeholder="Director" autocomplete="off"/>
+    </div>
+    
+    <div class="wideRow">
+    <label for="resp"  class="itemNarrow">Categoría:</label>
+    <input type="text" class="itemWide" id="resp" name="answer" value="<%= film.category %>" placeholder="Categoría" autocomplete="off"/>
+    </div>
+    
+    <br/>
+    <a href="/films"><button type="button">Cancel</button></a>
+    
+    <input type="submit" value="Save">
