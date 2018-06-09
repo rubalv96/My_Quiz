@@ -21,6 +21,7 @@ router.get('/author', (req, res, next) => {
 // Autoload for routes using :quizId
 router.param('quizId', quizController.load);
 router.param('userId', userController.load);
+router.param('filmId', filmController.load);
 
 
 // Routes for the resource /users
@@ -51,5 +52,8 @@ router.post('/quizzes/:quizId(\\d+)/tips',     tipController.create);
 
 router.get('/films',          filmController.index);
 router.get('/films/new',      filmController.new);
+router.get('/films/:filmId(\\d+)/show',   filmController.show);
+router.post('/films',         filmController.create);
+router.delete('/films/:filmId(\\d+)',    filmController.destroy);
 
 module.exports = router;
