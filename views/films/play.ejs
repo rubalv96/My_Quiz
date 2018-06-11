@@ -1,0 +1,36 @@
+<h1>
+    Juego:
+</h1>
+
+<form method="get" action="/films/<%= film.id %>/check">
+
+
+    <div class="quizItem">
+
+        <div>
+            <% var attachment = film.attachment; %>
+            <% include ../attachments/_show %>
+        </div>
+
+        <div>
+           
+            
+            <b><%= film.question %></b>
+
+            <div class="wideRow">
+                <input type="text" class="itemWide" name="answer" value="<%= answer %>" placeholder="Answer" autocomplete="off"/>
+                <input type="submit" class="itemNarrow" value="Check">
+            </div>
+
+        </div>
+    </div>
+
+</form>
+<td>
+    <a href="https://www.google.es/search?q=<%= quiz.question %>" target="_blank"><button>Ayuda de Google</button></a>
+</td>
+
+
+
+
+<a href="/quizzes"><button>Go back</button></a>

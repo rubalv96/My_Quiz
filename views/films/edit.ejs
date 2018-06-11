@@ -1,0 +1,7 @@
+<h1>
+    Editar pregunta de cine:
+</h1>
+
+<form method="post" action="/films/<%= film.id %>?_method=PUT" enctype="multipart/form-data" >
+    <% include _form.ejs %>
+</form>

@@ -1,0 +1,25 @@
+<h1>
+    Preguntas especiales sobre películas:
+</h1>
+
+<div class="quizItem">
+
+    <div>
+        <% var attachment = film.attachment; %>
+        <% include ../attachments/_show %>
+    </div>
+
+    <div>
+        <br/>
+        Question: <b><%= film.question %></b>
+        <br />
+        Answer: <b><%= film.answer %></b>
+        <br />
+    </div>
+
+</div>
+
+
+<a href="/goback"><button>Go back</button></a>
+
+

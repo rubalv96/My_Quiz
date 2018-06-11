@@ -3,7 +3,7 @@
 module.exports = {
     up(queryInterface, Sequelize) {
         return queryInterface.createTable(
-            'attachments',
+            'films',
             {
                 id: {
                     type: Sequelize.INTEGER,
@@ -12,29 +12,16 @@ module.exports = {
                     autoIncrement: true,
                     unique: true
                 },
-                quizId: {
+                question: {
+                    type: Sequelize.STRING,
+                    validate: {notEmpty: {msg: "Question must not be empty."}}
+                },
+                answer: {
+                    type: Sequelize.STRING,
+                    validate: {notEmpty: {msg: "Answer must not be empty."}}
+                },
+                authorId: {
                     type: Sequelize.INTEGER,
-                    allowNull: true
-                },
-                filmId: {
-                    type: Sequelize.INTEGER,
-                    allowNull: true
-                },
-                public_id: {
-                    type: Sequelize.STRING,
-                    allowNull: false
-                },
-                url: {
-                    type: Sequelize.STRING,
-                    allowNull: false
-                },
-                filename: {
-                    type: Sequelize.STRING,
-                    allowNull: false
-                },
-                mime: {
-                    type: Sequelize.STRING,
-                    allowNull: false
                 },
                 createdAt: {
                     type: Sequelize.DATE,
@@ -50,8 +37,7 @@ module.exports = {
             }
         );
     },
-
     down(queryInterface, Sequelize) {
-        return queryInterface.dropTable('attachments');
+        return queryInterface.dropTable('films');
     }
 };

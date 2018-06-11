@@ -10,6 +10,8 @@ const userController = require('../controllers/user');
 const sessionController = require('../controllers/session');
 const favouriteController = require('../controllers/favourite');
 
+const filmController = require('../controllers/film');
+
 //-----------------------------------------------------------
 
 // autologout
@@ -59,6 +61,7 @@ router.get('/author', (req, res, next) => {
 router.param('quizId', quizController.load);
 router.param('userId', userController.load);
 router.param('tipId',  tipController.load);
+router.param('filmId', filmController.load);
 
 
 // Routes for the resource /session
@@ -153,5 +156,42 @@ router.delete('/users/:userId(\\d+)/favourites/:quizId(\\d+)',
     sessionController.adminOrMyselfRequired,
     favouriteController.del);
 
+//Rutas para los quizzes esepciales de películas
 
+// Routes for the resource /quizzes
+router.get('/films',
+    sessionController.loginRequired,
+	filmController.index);
+router.get('/films/:filmId(\\d+)',
+    sessionController.loginRequired,
+	filmController.show);
+router.get('/films/new',
+    sessionController.loginRequired,
+    sessionController.adminRequired,
+	filmController.new);
+router.post('/films',
+    sessionController.loginRequired,
+    sessionController.adminRequired,
+    upload.single('video'),
+	filmController.create);
+router.get('/quizzes/:films(\\d+)/edit',
+    sessionController.loginRequired,
+    sessionController.adminRequired,
+	filmController.edit);
+router.put('/films/:filmId(\\d+)',
+    sessionController.loginRequired,
+    sessionController.adminRequired,
+    upload.single('video'),
+	filmController.update);
+router.delete('/films/:filmId(\\d+)',
+    sessionController.loginRequired,
+    sessionController.adminRequired,
+	filmController.destroy);
+
+router.get('/films/:filmId(\\d+)/play',
+    sessionController.loginRequired,
+	filmController.play);
+router.get('/films/:filmId(\\d+)/check',
+    sessionController.loginRequired,
+	filmController.check);
 module.exports = router;

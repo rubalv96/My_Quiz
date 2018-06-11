@@ -28,10 +28,13 @@ sequelize.import(path.join(__dirname,'attachment'));
 // Session
 sequelize.import(path.join(__dirname,'session'));
 
+// peliculas
+sequelize.import(path.join(__dirname,'film'));
+
 
 // Relation between models
 
-const {quiz, tip, attachment, user} = sequelize.models;
+const {quiz, tip, attachment, user, film} = sequelize.models;
 
 tip.belongsTo(quiz);
 quiz.hasMany(tip);
@@ -60,5 +63,19 @@ user.belongsToMany(quiz, {
     foreignKey: 'userId',
     otherKey: 'quizId'
 });
+
+
+//Relacion 1 a 1 entre films y attachments
+
+attachment.belongsTo(film);
+film.hasOne(attachment);
+
+
+//Relación 1 a N entre users y quiz
+user.hasMany(film, {foreignKey: 'authorId'});
+film.belongsTo(user, {as: 'author', foreignKey: 'authorId'});
+
+
+
 
 module.exports = sequelize;
