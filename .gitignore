@@ -1,10 +1,5 @@
 node_modules
 .DS_Store
-<<<<<<< HEAD
-.env
-quiz.sqlite
-=======
 quiz.sqlite
 .env
 uploads
->>>>>>> master

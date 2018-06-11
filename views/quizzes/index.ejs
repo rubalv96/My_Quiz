@@ -39,11 +39,6 @@
             <br />
             <small> (by <%= quiz.author ? quiz.author.username : "Anonymous" %>) </small>
         </td>
-<<<<<<< HEAD
-       
-=======
-
->>>>>>> master
         <td>
             <% if (session.user) { %>
                 <% if (session.user.isAdmin || session.user.id === quiz.authorId) { %>
@@ -59,12 +54,6 @@
             <% } %>
         </td>
 
-<<<<<<< HEAD
-        <td>
-            <a href="https://www.google.es/search?q=<%= quiz.question %>" target="_blank"><button>Buscar en Internet</button></a>
-        </td>
-=======
->>>>>>> master
     </tr>
     <% } %>
 </table>
