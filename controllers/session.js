@@ -169,6 +169,7 @@ exports.create = (req, res, next) => {
                 id: user.id,
                 username: user.username,
                 isAdmin: user.isAdmin,
+                avatarId: user.avatarId,
                 expires: Date.now() + maxIdleTime
             };
 

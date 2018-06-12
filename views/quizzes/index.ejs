@@ -38,7 +38,10 @@
             <a href="/quizzes/<%= quiz.id %>/play"><%= quiz.question %></a>
             <br />
             <small> (by <%= quiz.author ? quiz.author.username : "Anonymous" %>) </small>
+            
         </td>
+
+        
         <td>
             <% if (session.user) { %>
                 <% if (session.user.isAdmin || session.user.id === quiz.authorId) { %>
@@ -50,8 +53,19 @@
                            onClick="return confirm('Delete: <%= quiz.question %>');">
                             <button>delete</button>
                         </a>
+
+
                 <% } %>
             <% } %>
+        </td>
+
+        <td>
+            <% if(quiz.author && quiz.author.avatarId === 1){ %>
+                <img src="http://res.cloudinary.com/dkwqbsyid/image/upload/v1528825974/core/quiz2018/attachments/myAvatar_1.png" width="40" />
+                <% } %>
+                <%  if(quiz.author && quiz.author.avatarId === 2){ %>
+                <img src="http://res.cloudinary.com/dkwqbsyid/image/upload/v1528825532/core/quiz2018/attachments/myAvatar.png" width="40" />
+                <%  } %>
         </td>
 
     </tr>

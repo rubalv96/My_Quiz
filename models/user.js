@@ -25,6 +25,9 @@ module.exports = function (sequelize, DataTypes) {
         isAdmin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        avatarId: {
+            type: DataTypes.INTEGER
         }
     });
 

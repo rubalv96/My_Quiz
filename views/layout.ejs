@@ -23,6 +23,13 @@
                 <a href="/users/new">Register</a>
                 <a href="/session">Login</a>
             <% } else { %>
+                <% if(session.user.avatarId === 1){ %>
+                    <img src="http://res.cloudinary.com/dkwqbsyid/image/upload/v1528825974/core/quiz2018/attachments/myAvatar_1.png" width="40" />
+                    <% } %>
+                    <%  if(session.user.avatarId === 2){ %>
+                    <img src="http://res.cloudinary.com/dkwqbsyid/image/upload/v1528825532/core/quiz2018/attachments/myAvatar.png" width="40" />
+                    <%  } %>
+
                 <a href="/users/<%= session.user.id %>"><%= session.user.username %></a>
                 <a href="/session?_method=DELETE">Logout</a>
             <% } %>
