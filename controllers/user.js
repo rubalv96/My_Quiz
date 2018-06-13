@@ -122,6 +122,7 @@ exports.update = (req, res, next) => {
 
     // user.username  = body.user.username; // edition not allowed
     user.password = body.password;
+    user.avatarId = body.avatarId;
 
     // Password can not be empty
     if (!body.password) {
@@ -129,9 +130,10 @@ exports.update = (req, res, next) => {
         return res.render('users/edit', {user});
     }
 
-    user.save({fields: ["password", "salt"]})
+    user.save({fields: ["password", "salt", "avatarId"]})
     .then(user => {
-        req.flash('success', 'User updated successfully.');
+        req.flash('success', 'Cambios realizados correctamente.');
+        req.flash('info', "Para poder actualizar los cambios debe volver a iniciar sesión.")
         res.redirect('/users/' + user.id);
     })
     .catch(Sequelize.ValidationError, error => {
