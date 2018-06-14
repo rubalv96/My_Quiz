@@ -208,7 +208,7 @@ router.post('/films',
     sessionController.adminRequired,
     upload.single('video'),
 	filmController.create);
-router.get('/quizzes/:films(\\d+)/edit',
+router.get('/films/:filmId(\\d+)/edit',
     sessionController.loginRequired,
     sessionController.adminRequired,
 	filmController.edit);
