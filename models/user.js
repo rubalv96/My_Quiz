@@ -28,6 +28,10 @@ module.exports = function (sequelize, DataTypes) {
         },
         avatarId: {
             type: DataTypes.INTEGER
+        },
+        puntUser:{
+            type: DataTypes.INTEGER
+
         }
     });
 

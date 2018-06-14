@@ -12,12 +12,16 @@ module.exports = {
                 password: crypt.encryptPassword('1234', 'aaaa'),
                 salt: 'aaaa',
                 isAdmin: true,
+                puntUser: 0,
+                avatarId: 1,
                 createdAt: new Date(), updatedAt: new Date()
             },
             {
                 username: 'pepe',
                 password: crypt.encryptPassword('5678', 'bbbb'),
                 salt: 'bbbb',
+                puntUser: 0,
+                avatarId: 4,
                 createdAt: new Date(), updatedAt: new Date()
             }
         ]);

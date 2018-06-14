@@ -519,6 +519,7 @@ exports.randomPlay = (req, res, next) =>{
 
         }
         else{
+           
             res.render('quizzes/random_play',{
                 quiz,
                 score
@@ -532,17 +533,43 @@ exports.randomCheck = (req, res, next) => {
     let score = req.session.resolved.length;
     const answer = req.query.answer || "";
     const result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
-
+    const{user} = req.session;
+    console.log("El usuario es: "+ user.username);
     if(result){
         if(req.session.resolved.indexOf(req.quiz.id)===-1){
             req.session.resolved.push(req.quiz.id);
             score = req.session.resolved.length;
-        }
+            if(score > req.session.user.puntUser){
+                user.puntUser = score;
+                console.log("Mi puntUser es: " + user.puntUser );
+                
+                
+                models.user.findById(req.session.user.id).then((user)=>{
+                    user.puntUser = score;
+             console.log("ATENCION!!!!!!! puntuacion: " + user.username + user.puntUser)
 
-        else{
-            delete req.session.resolved;
+                    user.save({fields: ["puntUser"]})
+                    .then(user => {
+                        console.log("punt user dentro: " + user.username + user.puntUser);
+                    })
+                    .catch(Sequelize.ValidationError, error => {
+                    req.flash('error', 'There are errors in the form:');
+                    error.errors.forEach(({message}) => req.flash('error', message));
+                    })
+                    .catch(error => {
+                    req.flash('error', 'Error editing the Quiz: ' + error.message);
+                    next(error);
+                    });
+                })
+                
+            }
         }
     }
+
+    else{
+            delete req.session.resolved;
+    }
+    
     
     res.render('quizzes/random_result', {result, score, answer});
 };

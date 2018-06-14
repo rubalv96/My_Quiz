@@ -1,3 +1,14 @@
+
+<%   if(session.user){   %>
+    
+    <li>
+       Mi puntuación máxima es de: <%=  session.user.puntUser || 0 %> puntos
+    </li>
+       <%  } %>
+<h1>
+
+
+
 <h1>
     Random Play:
 </h1>
@@ -7,15 +18,25 @@
 </div>
 
 <form method="get" action="/quizzes/randomcheck/<%= quiz.id %>">
+    <div class="quizItem">
 
-    <p>
-        Question: <b><%= quiz.question %></b>
-    </p>
-
-
-    <div class="wideRow">
-        <input type="text" class="itemWide" id="answer" name="answer" value="" placeholder="Answer" autocomplete="off"/>
-        <input type="submit" class="itemNarrow" id="send" value="Check">
+        <div>
+            <% var attachment = quiz.attachment; %>
+            <% include ../attachments/_show %>
+        </div>
+    
+        <div>
+            <% include ../favourites/_stars.ejs %>
+            <br/>
+            <b><%= quiz.question %></b>
+            <div class="wideRow">
+                <input type="text" class="itemWide" id="answer" name="answer" value="" placeholder="Answer" autocomplete="off"/>
+                <input type="submit" class="itemNarrow" id="send" value="Check">
+            </div>
+        </div>
+     
     </div>
+
+  
 </form>
 

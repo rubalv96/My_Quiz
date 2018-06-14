@@ -41,10 +41,14 @@
                 <% if(session.user.avatarId===6){ %>
                     <img src="http://res.cloudinary.com/dkwqbsyid/image/upload/v1528903885/core/quiz2018/attachments/anime.png" width="40" />
                 <%  } %>
-        
+                    
 
                 <a href="/users/<%= session.user.id %>"><%= session.user.username %></a>
+                
                 <a href="/session?_method=DELETE">Logout</a>
+                <small>
+                        (Máximo: <%= session.user.puntUser || 0%>)
+                    </small>
             <% } %>
         </div>
 
@@ -56,12 +60,20 @@
         <a href="/quizzes">Quizzes</a>
         <% if (session.user) { %>
             <a href="/users/<%= session.user.id %>/quizzes">My Quizzes</a>
+            <a href="/quizzes/randomplay">Play</a>
+            
         <% } %>
-        <a href="/quizzes/randomplay">Play</a>
+        
+       
+        
+       
+       
+       
         <a href="/author">Author</a>
         <% if (session.user) { %>
             <a href="/users">Users</a>
             <a href="/films">Especial CINE</a>
+            <a href="/ranking">Ranking de usuarios</a>
         <% } %>
 
     </nav>

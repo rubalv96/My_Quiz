@@ -12,6 +12,9 @@ const favouriteController = require('../controllers/favourite');
 
 const filmController = require('../controllers/film');
 
+const {models} = require("../models");
+
+
 //-----------------------------------------------------------
 
 // autologout
@@ -54,6 +57,16 @@ router.get('/', (req, res, next) => {
 // Author page.
 router.get('/author', (req, res, next) => {
     res.render('author');
+});
+
+//Ranking de usuarios
+router.get('/ranking', (req,res,next)=>{
+    models.user.findAll({order: [
+        ['puntUser', 'DESC'],
+        ]}).then((users)=>{
+    res.render('ranking',{users});
+    }
+)
 });
 
 
@@ -131,8 +144,13 @@ router.get('/quizzes/:quizId(\\d+)/play',
 router.get('/quizzes/:quizId(\\d+)/check',
 	quizController.check);
     
-router.get('/quizzes/randomplay', quizController.randomPlay);
-router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.randomCheck);
+router.get('/quizzes/randomplay', 
+    sessionController.loginRequired,
+    quizController.randomPlay);
+
+router.get('/quizzes/randomcheck/:quizId(\\d+)', 
+    sessionController.loginRequired,
+    quizController.randomCheck);
 
 router.get('/quizzes/:quizId(\\d+)/play',  quizController.play);
 router.get('/quizzes/:quizId(\\d+)/check', quizController.check);

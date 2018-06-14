@@ -10,6 +10,9 @@ exports.load = (req, res, next, userId) => {
     .then(user => {
         if (user) {
             req.user = user;
+            if(user.puntUser === undefined){
+                user.puntUser = 0;
+            }
             next();
         } else {
             req.flash('error', 'There is no user with id=' + userId + '.');
@@ -65,7 +68,8 @@ exports.new = (req, res, next) => {
 
     const user = {
         username: "",
-        password: ""
+        password: "",
+        puntUser: 0
     };
 
     res.render('users/new', {user});
@@ -76,15 +80,16 @@ exports.new = (req, res, next) => {
 exports.create = (req, res, next) => {
 
     const {username, password, avatarId} = req.body;
-
+    const puntUser = 0;
     const user = models.user.build({
         username,
         password,
-        avatarId
+        avatarId,
+        puntUser
     });
 
     // Save into the data base
-    user.save({fields: ["username", "password", "salt", "avatarId"]})
+    user.save({fields: ["username", "password", "salt", "avatarId", "puntUser"]})
     .then(user => { // Render the users page
         req.flash('success', 'User created successfully.');
         if (req.session.user) {
@@ -129,7 +134,7 @@ exports.update = (req, res, next) => {
         req.flash('error', "Password field must be filled in.");
         return res.render('users/edit', {user});
     }
-
+    
     user.save({fields: ["password", "salt", "avatarId"]})
     .then(user => {
         req.flash('success', 'Cambios realizados correctamente.');
@@ -153,8 +158,9 @@ exports.destroy = (req, res, next) => {
 
         // Deleting logged user.
         if (req.session.user && req.session.user.id === req.user.id) {
-            // Close the user session
+            // Close the user sessio
             delete req.session.user;
+            
         }
 
         req.flash('success', 'User deleted successfully.');

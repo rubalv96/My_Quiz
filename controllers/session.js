@@ -158,6 +158,7 @@ exports.create = (req, res, next) => {
 
     const login     = req.body.login;
     const password  = req.body.password;
+    
 
     authenticate(login, password)
     .then(user => {
@@ -170,6 +171,7 @@ exports.create = (req, res, next) => {
                 username: user.username,
                 isAdmin: user.isAdmin,
                 avatarId: user.avatarId,
+                puntUser:user.puntUser,
                 expires: Date.now() + maxIdleTime
             };
 
@@ -190,6 +192,7 @@ exports.create = (req, res, next) => {
 exports.destroy = (req, res, next) => {
 
     delete req.session.user;
+    delete req.session.resolved;
 
     res.redirect("/session"); // redirect to login gage
 };
